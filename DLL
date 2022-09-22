@@ -1,0 +1,59 @@
+#include <iostream>
+#include <memory>
+
+using namespace std;
+
+
+struct DLLNode {
+        int data;
+        shared_ptr<DLLNode> next {nullptr};
+        shared_ptr<DLLNode> prev {nullptr};
+};
+//end of DLLNode
+
+int main(){
+    
+    shared_ptr<DLLNode> head=nullptr;
+    shared_ptr<DLLNode> tail=nullptr;
+    
+    //initialisation and declaration of doubly linked list
+    for(int i=1;i<=10;i++){
+        shared_ptr<DLLNode> node(new DLLNode());
+        if(head==nullptr)
+            head=node;
+        node->data=i;
+        node->prev=tail;
+        if(tail!=nullptr)
+            tail->next=node;
+        tail=node;
+        node->next=nullptr;
+    }
+    
+    //end of initialisation and declaration
+    
+    shared_ptr<DLLNode> travel(new DLLNode());
+    travel=head;
+    
+    //traverse the list just declared from head to tail and output data
+    cout<<"Forward:\n";
+    while(travel!=nullptr){
+        
+        cout<<travel->data<<" ";
+        travel=travel->next;
+    }
+    //end of forward traversal
+    
+    travel=tail;
+    
+    //traverse the list just declared from tail to head and output data
+    cout<<"\nBackward :\n";
+    while(travel!=nullptr){
+        
+        cout<<travel->data<<" ";
+        travel=travel->prev;
+    }
+    //end of Backward traversal
+    
+    return 0;
+    
+}
